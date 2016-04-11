@@ -1,0 +1,162 @@
+factorielle:
+sémantique :
+  on fait formule de la factorielle
+spécification :
+  un résultat ne doit pas être négatif
+
+fait ce qu'on lui dit jusqu'à un certain moment :
+pb de taille de mots, donc part dans les négatifs etc.
+
+Pour un mathématicien, la sémantique suit la spécification, mais pas pour un informaticien. On aura beau payer de plus en plus cher, on aura jamais (enfin, jamais dire jamais) des machines avec mémoire et vitesse infinie.
+Donc même si le mathématicien sait que la formule est correcte, l'informaticien devra la modifier pour que la sémantique de son programme se conforme à la spécification. Et pour savoir si ça va merder ou non, il faut faire des tests
+
+on peut représenter un programme sous forme de courbes avec des états
+
+Certaines executions sont finies et d'autres non (pour la factorielle on va dire que si).
+Ici on va colorier une zone en rouge, histoire de montrer que si notre programme arrive ici, il y a erreur.
+
+Analyse dynamique
+
+Quand on va faire nos tests, en général, on va tester si fact(2) fonctionne, puis si fact(6) fonctionne etc.
+Et on va s'arrêter là en se disant qu'un résultat ne sera jamais négatif. On ne cherche pas beaucoup plus loin.
+Notre sémantique suit la spécification.
+
+Seulement l'erreur et la flemme sont humaines, et on va oublier ou ne pas pousser nos tests, et donc passer à côté de bugs potentiels.
+
+
+Imaginons qu'on ait un programme qui suivrait ce déroulement. les spécifications nous indiquent qu'il faut qu'une certaine valeur soit comprise entre ces deux zones, et qu'à tel moment, nous ne devons pas être dans tel état, par exemple si un moment on fait une division par 0.
+
+Soit en ne vérifiant que les premières étapes d'execution d'un programme
+Soit en vérifiant quelques exécutions, qui par chance, ou non, ne causeront pas de bugs.
+
+Ok, donc ça c'est ce qu'on fait aujourd'hui. Les vérifications sont faites par des esprits humains, s'ils sont suffisament entraînés ils sauront trouver les cas particuliers problématiques, mais une erreur peut toujours se faufiler.
+
+ex. d'erreurs dûes à des approximations par la nasa, etc.
+
+Donc aujourd'hui, je ne vais pas vous parler de "comment bien faire vos tests unitaires", parce que 1. Ça n'a rien à voir avec la compilation, et que 2, ben c'est pas mon sujet d'exposé en fait.
+
+Analyse statique
+
+Imaginons qu'on ait un moyen de regrouper les étapes d'éxecution possibles d'un programme. Comme ici. C'est une représentation abstraite.
+
+Il faut bien faire attention à ce que cette représentation comprenne toutes les éxecutions possibles, sinon elle n'est pas correcte.
+
+De plus, elles doivent être prouvées correctes à tout moment. On ne doit pas dire "c'est bon jusque là donc ça devrait toujours être bon par là", car on peut oublier certains détails qui font que ça déborde.
+C'est le bounded-model checking
+
+Il faut aussi faire attention à ce que l'approximation ne soit pas trop généraliste. Sinon on peut provoquer des fausses alarmes comme ici, alors qu'en pratique, notre programme ne dépassera jamais dans la zone rouge.
+
+Un exemple d'analyse statique
+Détection de constantes
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+Plan
+
+Intro
+
+  > exemple factorielle
+
+The concrete semantics of a program formalizes (is a mathematical model of) the set of all its possible executions in all possible execution environments the concrete mathematical semantics of a program is an “infinite” mathematical object, not computable;
+– All non trivial questions on the concrete program semantics are undecidable.
+Example: Kurt Gödel argument on termination
+– Assume termination(P) would always terminates and returns true iff P always terminates on all input data;
+– The following program yields a contradiction
+P =_ while termination(P) do skip od.
+
+On fait quoi ?
+
+  Analyse Dynamique
+  On teste
+  !Testing: manually checking a property for some execution paths
+
+Model checking: automatically checking a property for all execution paths
+
+  Analyse Statique
+Static program analysis consists of automatically discovering properties of a program that hold for all possible execution paths of the program.
+
+  Interprétation Abstraite
+L'idée de base de l’analyse statique est d’utiliser l’ordinateur pour trouver les erreurs de programmation.
+ La question de savoir comment programmer les ordinateurs
+pour qu’ils analysent le travail qu’on leur donne à faire, avant qu’ils ne le fassent ef-
+fectivement est extrêmement difficile
+Il faut donc se résoudre à un compromis qui consiste à ne considé-
+rer qu’une approximation des comportements possibles du programme à analyser.
+
+’abstraction formalise une perte d’information, qui ne permet pas de répondre
+à toutes les questions. Toutes les réponses données par la sémantique abstraite sont
+toujours justes  pour la  sémantique concrète.
+Interprétation Abstraite
+The core idea of Abstract Interpretation is the formalization of the notion of approximation
+An approximation of memory configurations is first defined
+Then the approximation of all atomic operations
+The approximation is automatically lifted to the whole program structure
+The approximation is generally a scheme that depends on some other parameter approximations
+
+  Un exemple
+
+  Rapport avec la compilation ?
+Optimizing compilers
+Program understanding
+Semantic preprocessing:
+Model checking
+Automated test generation
+Program verification
+Check that every operation of a program will never cause an error (division by zero, buffer overrun, deadlock, etc.)
+ex
+int a[1000];
+for (i = 0; i < 1000; i++) {
+  a[i] = … ;  // 0 <= i <= 999
+}
+a[i] = … ;    // i = 1000; /!\
+
+Conclusion
+
+
+
+
+
+Intro
+exemple factorielle
+bugs importants pour dire oh lala c'est important
+
+Exposition du probleme
+schéma trajectoires
+explication sémantique et spécification
+schéma safety properties
+explication safety properties & undecidability
+tests/ debuggage = pas bon avec schémas
+
+Interpretation abstraite
+graphic example
+imagine tu peux contenir toutes les executions dans un intervalle.
+Doit être suffisament simple pour pas faire exploser les calculs
+doit contenir toutes les executions, dans leur globalité
+doit aussi être suffisamment précis pour ne pas avoir de fausses alarmes
+
+Exemple d'un calcul d'interpretation abstraite
+
+Rapport avec la compilation
+Permet de prendre des décisions sur l'optimisation (exemple constantes)
+Permet au compilateur de mieux comprendre le déroulement du programme (toujours optimisation)
+Permet de déclencher des erreurs quand on a à un moment une division par 0, ou un array index out of bounds etc
+Il existe des logiciels pour vérifier si les programmes sont corrects, astree etc.
+Astree sert par exemple à vérifier la présence d'erreurs d'execution des logiciels embarqués sur certains avions.
+
+Conclusion
+Couvre beaucoup plus de code et détecte beaucoup plus facilement les erreurs d'execution que les tests classiques.
+Même si les tests unitaires restent importants, en particulier si on veut vérifier le comportement d'une partie spécifique du programme
+Il est fort probable que le génie logiciel ait de plus en plus recours à ce genre de tests dans le futur.
