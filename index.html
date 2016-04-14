@@ -109,6 +109,10 @@ int main(int argc, char **argv) {
         </section>
 
         <section>
+          <h2>Explications</h2>
+        </section>
+
+        <section>
           <h2 class="fragment">De nombreux bugs sont découverts...</h2>
           <img src="img/landing_fail.gif" height="350"/>
           <h2 class="fragment">...Trop tard !</h2>
@@ -283,7 +287,7 @@ int main(int argc, char **argv) {
           </section>
 
           <section>
-            <pre><code class="asm">                    a = ?, b = ?, k = 2, m = ?, n = ?
+            <pre><code class="asm">                    a = 0, b = ?, k = 2, m = ?, n = ?
                     a = ?, b = ?, k = 2, m = 0, n = ?</code></pre>
             <div class="fragment">
               <img src="img/fusion.gif"/>
@@ -293,6 +297,7 @@ int main(int argc, char **argv) {
 
           <section>
             <pre><code class="asm">                    a = ?, b = ?, k = 2, m = ?, n = ?</code></pre>
+            <p>Résultat de la fusion : a == ?, m == ?, et k == 2.</p>
           </section>
 
           <section>
@@ -300,9 +305,45 @@ int main(int argc, char **argv) {
  RETURN ret
  EXIT
 </code></pre>
+            <h3>On sait donc que k == 2 à chaque fin d'exécution</h3>
           </section>
 
         </section>
+
+        <section>
+          <h2>Utilités</h2>
+        </section>
+
+        <section>
+          <h3>Optimisation</h3>
+          <p>Meilleure compréhension du programme lors de la compilation</p>
+          <p>Optimisation (ex. : k == 2 -> constante)</p>
+        </section>
+
+        <section>
+          <h3>Sécurité</h3>
+          <p>Détecte les erreurs d'exécution (division par 0, array index out of bounds)</p>
+        </section>
+
+        <section>
+          <h3>Logiciels</h3>
+          <ul>
+            <li>ASTREE (A340, A380...)</li>
+            <li>ProVerif</li>
+            <li>CryptoVerif</li>
+          </ul>
+        </section>
+
+        <section>
+          <h2>Bilan</h2>
+            <ul>
+              <li>Couvre plus de code ;</li>
+              <li>détecte plus facilement les erreurs d'execution ;</li>
+              <li>les tests unitaires restent importants ;</br>(vérifier des comportements spécifiques)</li>
+              <li>de plus en plus utilisée dans le futur.</li>
+          </ul>
+        </section>
+
 			</div>
 
 		</div>
