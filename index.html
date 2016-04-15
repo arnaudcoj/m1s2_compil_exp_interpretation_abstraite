@@ -4,9 +4,9 @@
 	<head>
 		<meta charset="utf-8">
 
-		<title>Compilation -- Interprétation Abstraite</title>
+		<title>Compilation – Interprétation Abstraite</title>
 
-		<meta name="description" content="A presentation about abstract interpretation">
+		<meta name="description" content="A presentation about abstract interprétation">
 		<meta name="author" content="Cojez Arnaud">
 
 		<meta name="apple-mobile-web-app-capable" content="yes">
@@ -17,10 +17,10 @@
 		<link rel="stylesheet" href="css/reveal.css">
 		<link rel="stylesheet" href="css/theme/moon.css" id="theme">
 
-		<!-- Code syntax highlighting -->
+		<!– Code syntax highlighting –>
 		<link rel="stylesheet" href="lib/css/zenburn.css">
 
-		<!-- Printing and PDF exports -->
+		<!– Printing and PDF exports –>
 		<script>
 			var link = document.createElement( 'link' );
 			link.rel = 'stylesheet';
@@ -29,22 +29,22 @@
 			document.getElementsByTagName( 'head' )[0].appendChild( link );
 		</script>
 
-		<!--[if lt IE 9]>
+		<!–[if lt IE 9]>
 		<script src="lib/js/html5shiv.js"></script>
-		<![endif]-->
+		<![endif]–>
 	</head>
 
 	<body>
 
 		<div class="reveal">
 
-			<!-- Any section element inside of this container is displayed as a slide -->
+			<!– Any section element inside of this container is displayed as a slide –>
 			<div class="slides">
 
         <section>
           <h3>Votre mission si vous l'acceptez...</h3>
           <h2>Programmer la fonction factorielle</br>en C !</h2>
-          <p>
+          <p class="fragment">
             <small>
               Pff, facile.
             </small>
@@ -65,8 +65,8 @@ int fact(int n) {
 }
 
 int main(int argc, char **argv) {
-  assert(argc > 1);
-  int n = atoi(argv[1]);
+  assert(argc > 1); // arrête l'exécution si aucun paramètre
+  int n = atoi(argv[1]); // recupération du paramètre
   printf("%d! = %d\n", n, fact(n)); // impression du résultat
 }</code></pre>
         </section>
@@ -110,11 +110,12 @@ int main(int argc, char **argv) {
 
         <section>
           <h2>Explications</h2>
+          <img src="img/signedint.png"/>
         </section>
 
         <section>
-          <h2 class="fragment">De nombreux bugs sont découverts...</h2>
-          <img src="img/landing_fail.gif" height="350"/>
+          <h2>De nombreux bugs similaires sont découverts...</h2>
+          <img src="img/failx.gif" height="350"/>
           <h2 class="fragment">...Trop tard !</h2>
         </section>
 
@@ -127,33 +128,43 @@ int main(int argc, char **argv) {
         </section>
 
         <section>
-          <h2>Nouveau programme</h2>
-          <img class="fragment" src="img/abs1.png"/>
+          <h2>Vocabulaire</h2>
         </section>
 
         <section>
-          <h2>Sémantique</h2>
-          <h3 class="fragment"> = exécutions possibles du programme</h3>
-          <p>
-            La fonction fact(n) renvoie 24 pour n = 4, etc.
-          </p>
-        </section>
+          <section>
+            <h2>Sémantique</h2>
+            <div class="fragment">
+              <h3>= exécutions possibles du programme</h3>
+              <img src="img/abs_base.png"/>
+              <p>
+                La fonction fact(n) renvoie 24 pour n = 4, etc.
+              </p>
+          </div>
+          </section>
 
-        <section>
-          <h2>Spécifications</h2>
-          <h3 class="fragment"> = "règles" que doit suivre le programme</h3>
-          <p>
-            Par exemple : la fonction fact(n) ne doit pas renvoyer de nombre négatif, etc.
-          </p>
-        </section>
+          <section>
+            <h2>Spécifications</h2>
+            <div class="fragment">
+              <h3> = "règles" que doit suivre le programme</h3>
+              <img src="img/abs_spec.png"/>
+              <p>
+                Par exemple : la fonction fact(n) ne doit pas renvoyer de nombre négatif, etc.
+              </p>
+            </div>
+          </section>
 
-        <section>
-          <h2>Indécidabilité</h2>
-          <h3>La sémantique d'un programme n'est pas calculable par ordinateur.</h3>
-          <ul>
-            <li><em>Théorèmes d'incomplétude</em> -- Kurt Gödel</li>
-            <li><em>Problème de l'arrêt</em> -- Alan Turing
-          </ul>
+          <section>
+            <h2>Indécidabilité</h2>
+            <div class="fragment">
+              <h3>La sémantique d'un programme n'est pas calculable par ordinateur.</h3>
+              <ul>
+                <li><em>Théorèmes d'incomplétude</em> – Kurt Gödel</li>
+                <li><em>Problème de l'arrêt</em> – Alan Turing
+              </ul>
+            </div>
+          </section>
+
         </section>
 
         <section>
@@ -161,30 +172,44 @@ int main(int argc, char **argv) {
         </section>
 
         <section>
-          <h3>Certaines exécutions oubliées</h3>
-          <img src="img/"/>
+          <section>
+            <h3>Totalité de certaines exécutions non couvrables</h3>
+          </section>
+
+          <section>
+            <h3>Certaines exécutions oubliées</h3>
+            <img src="img/abs_tuni.png"/>
+          </section>
         </section>
 
         <section>
-          <h3>Totalité de certaines exécutions non couvrables</h3>
-          <img src="img/"/>
+          <h2>Solution : L'interprétation abstraite</h2>
+          <h3>Regrouper toutes les exécutions dans un intervalle</h3>
+          <img src="img/abs_abs.png">
         </section>
 
         <section>
-          <h2>Solution : L'intérprétation abstraite</h2>
-          <img src="img/">
-        </section>
 
-        <section>
-          <h3>L'abstraction doit être la plus simple possible...</h3>
-        </section>
+          <section>
+            <h2>Attention</h2>
+            <h3>L'abstraction doit être la plus simple possible...</h3>
+          </section>
 
-        <section>
-          <h3>... Mais suffisamment précise pour éviter les fausses alarmes</h3>
-        </section>
+          <section>
+            <h3>... Mais suffisamment précise pour éviter les fausses alarmes</h3>
+            <img src="img/abs_imp.png">
+          </section>
 
-        <section>
-          <h3>Elle doit contenir la globalité de toutes les exécutions</h3>
+          <section>
+            <h3>Elle doit contenir toutes les exécutions...</h3>
+            <img src="img/abs_error.png">
+          </section>
+
+          <section>
+            <h3>... Dans leur globalité</h3>
+            <img src="img/abs_short.png">
+          </section>
+
         </section>
 
         <section>
@@ -243,6 +268,10 @@ int main(int argc, char **argv) {
  EXIT</code></pre>
           </section>
 
+          <section>
+            <h3>On <em>voit</em> que k sera toujours == 2,</br> mais comment le <em>prouver</em> ?</h3>
+          </section>
+
         </section>
 
         <section>
@@ -276,19 +305,19 @@ int main(int argc, char **argv) {
 
           <section>
             <pre><code class="asm"> (instruction)        (interpreter state after instruction)
-                      a = ?, b = ?, k = 1
- k := 2               a = ?, b = ?, k = 2
- m := 0               a = ?, b = ?, k = 2, m = 0
- n := a + b           a = ?, b = ?, k = 2, m = 0, n = ?</code></pre>
+                      a = NZ, b = ?, k = 1
+ k := 2               a = NZ, b = ?, k = 2
+ m := 0               a = NZ, b = ?, k = 2, m = 0
+ n := a + b           a = NZ, b = ?, k = 2, m = 0, n = ?</code></pre>
              <p>
-               <em>if(a == 0)</em></br>
-               À la fin, on sait que <em>k == 2</em> et <em>m == 0</em>
+               <em>if(a == NZ)</em></br>
+               À la fin, on sait que <em>a != 0</em>, <em>k == 2</em> et <em>m == 0</em>
              </p>
           </section>
 
           <section>
             <pre><code class="asm">                    a = 0, b = ?, k = 2, m = ?, n = ?
-                    a = ?, b = ?, k = 2, m = 0, n = ?</code></pre>
+                    a = NZ, b = ?, k = 2, m = 0, n = ?</code></pre>
             <div class="fragment">
               <img src="img/fusion.gif"/>
               <h3>FUUUSION !</h3>
@@ -297,7 +326,12 @@ int main(int argc, char **argv) {
 
           <section>
             <pre><code class="asm">                    a = ?, b = ?, k = 2, m = ?, n = ?</code></pre>
-            <p>Résultat de la fusion : a == ?, m == ?, et k == 2.</p>
+            <p>Résultat de la fusion :
+              <ul>
+                <li>a == 0 ∪ NZ == ? ;</li>
+                <li>m == ? ;</li>
+                <li>k == 2.</li>
+              </ul></p>
           </section>
 
           <section>
@@ -311,18 +345,25 @@ int main(int argc, char **argv) {
         </section>
 
         <section>
-          <h2>Utilités</h2>
-        </section>
+            <h2>Utilités</h2>
 
-        <section>
-          <h3>Optimisation</h3>
-          <p>Meilleure compréhension du programme lors de la compilation</p>
-          <p>Optimisation (ex. : k == 2 -> constante)</p>
-        </section>
+          <section>
+            <h3>Optimisation</h3>
+            <p>Meilleure compréhension du programme lors de la compilation</p>
+            <p>Optimisation (ex. : k == 2 -> constante)</p>
+          </section>
 
-        <section>
-          <h3>Sécurité</h3>
-          <p>Détecte les erreurs d'exécution (division par 0, array index out of bounds)</p>
+          <section>
+            <h3>Sécurité</h3>
+            <p>Détecte les erreurs d'exécution (division par 0, array index out of bounds)</p>
+          </section>
+
+          <section>
+            <h3>Couverture du code plus importante</h3>
+            <p>
+              On couvre tout le code du programme, pas des parties spécifiques.
+            </p>
+          </section>
         </section>
 
         <section>
@@ -344,6 +385,19 @@ int main(int argc, char **argv) {
           </ul>
         </section>
 
+        <section data-background="img/woah.jpg">
+          <h1>Merci de votre attention !</h1>
+        </section>
+
+        <section>
+          <h2>Sources :</h2>
+          <ul>
+              <li><a href="http://www.di.ens.fr/~cousot/AI/IntroAbsInt.html">Abstract Interprétation in a Nutshell – Patrick Cousot</br><small>http://www.di.ens.fr/~cousot/AI/IntroAbsInt.html</small></a></li>
+              <li><a href="https://wiki.mozilla.org/Abstract_Interprétation"> Abstract Interprétation – Mozilla Wiki</br><small>https://wiki.mozilla.org/Abstract_Interprétation</small></a></li>
+              <li><a href="http://web.mit.edu/16.399/www/lecture_01-intro/Cousot_MIT_2005_Course_01_4-1.pdf"> An Informal Overview of Abstract Interprétation – Patrick Cousot </br><small>http://web.mit.edu/16.399/www/lecture_01-intro/Cousot_MIT_2005_Course_01_4-1.pdf</small></a></li>
+              <li><a href="http://symbolaris.com/course/Compilers11/28-absint.pdf"> Lecture Notes on Abstract Interprétation – André Platzer</br><small>http://symbolaris.com/course/Compilers11/28-absint.pdf</small></a></li>
+          </ul>
+        </section>
 			</div>
 
 		</div>
