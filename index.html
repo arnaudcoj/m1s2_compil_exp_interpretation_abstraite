@@ -263,7 +263,7 @@ int main(int argc, char **argv) {
  k := 2              a = 2, b = 7, k = 2
  m := 0              a = 2, b = 7, k = 2, m = 0
  n := a + b          a = 2, b = 7, k = 2, m = 0, n = 9
- ret := k + m + n    a = 2, b = 7, k = 2, m = 0, n = 7, ret = 9
+ ret := k + m + n    a = 2, b = 7, k = 2, m = 0, n = 9, ret = 11
  RETURN ret
  EXIT</code></pre>
           </section>
@@ -372,6 +372,7 @@ int main(int argc, char **argv) {
             <li>ASTREE (A340, A380...)</li>
             <li>ProVerif</li>
             <li>CryptoVerif</li>
+            <li>...</li>
           </ul>
         </section>
 
@@ -380,6 +381,7 @@ int main(int argc, char **argv) {
             <ul>
               <li>Couvre plus de code ;</li>
               <li>détecte plus facilement les erreurs d'execution ;</li>
+              <li>permet l'optimisation du programme ;</li>
               <li>les tests unitaires restent importants ;</br>(vérifier des comportements spécifiques)</li>
               <li>de plus en plus utilisée dans le futur.</li>
           </ul>
@@ -410,10 +412,11 @@ int main(int argc, char **argv) {
 			// Full list of configuration options available at:
 			// https://github.com/hakimel/reveal.js#configuration
 			Reveal.initialize({
-				controls: true,
+				controls: false,
 				progress: true,
 				history: true,
 				center: true,
+				slideNumber: false,
 
 				transition: 'slide', // none/fade/slide/convex/concave/zoom
 
