@@ -295,11 +295,11 @@ int main(int argc, char **argv) {
             <pre><code class="asm"> (instruction)        (interpreter state after instruction)
                       a = 0, b = ?, k = 1
  k := k + 1           a = 0, b = ?, k = 2
- m := a               a = 0, b = ?, k = 2, m = ?
- n := b               a = 0, b = ?, k = 2, m = ?, n = ?</code></pre>
+ m := a               a = 0, b = ?, k = 2, m = 0
+ n := b               a = 0, b = ?, k = 2, m = 0, n = ?</code></pre>
              <p>
                <em>if(a == 0)</em></br>
-               À la fin, on sait que <em>a == 0</em> et <em>k == 2</em>
+               À la fin, on sait que <em>a == 0</em>, <em>k == 2</em> et <em>m == 0</em>
              </p>
           </section>
 
@@ -316,7 +316,7 @@ int main(int argc, char **argv) {
           </section>
 
           <section>
-            <pre><code class="asm">                    a = 0, b = ?, k = 2, m = ?, n = ?
+            <pre><code class="asm">                    a = 0, b = ?, k = 2, m = 0, n = ?
                     a = NZ, b = ?, k = 2, m = 0, n = ?</code></pre>
             <div class="fragment">
               <img src="img/fusion.gif"/>
@@ -325,21 +325,21 @@ int main(int argc, char **argv) {
           </section>
 
           <section>
-            <pre><code class="asm">                    a = ?, b = ?, k = 2, m = ?, n = ?</code></pre>
+            <pre><code class="asm">                    a = ?, b = ?, k = 2, m = 0, n = ?</code></pre>
             <p>Résultat de la fusion :
               <ul>
                 <li>a == 0 ∪ NZ == ? ;</li>
-                <li>m == ? ;</li>
+                <li>m == 0 ;</li>
                 <li>k == 2.</li>
               </ul></p>
           </section>
 
           <section>
-            <pre><code class="asm"> t1 := k + m + n        a = ?, b = ?, k = 2, m = ?, n = ?, ret = ?
+            <pre><code class="asm"> t1 := k + m + n        a = ?, b = ?, k = 2, m = 0, n = ?, ret = ?
  RETURN ret
  EXIT
 </code></pre>
-            <h3>On sait donc que k == 2 à chaque fin d'exécution</h3>
+            <h3>On sait donc que <em>k == 2</em> et <em>m == 0</em> à chaque fin d'exécution</h3>
           </section>
 
         </section>
